@@ -1,6 +1,7 @@
 package eladmizrahi.ex2home;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,7 +14,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 {
     private TextView txtBestResult, txtRecentResult, edtBestResult, edtRecentResult;
     private Button btnSettings, btnStart;
+    private int level, complexity;
     private boolean isOnHold;
+
+    private SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -32,6 +36,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         btnSettings.setOnClickListener(this);
         btnStart.setOnClickListener(this);
+
+        prefs = getSharedPreferences("settings", MODE_PRIVATE);
+        level = prefs.getInt("level", 1);
+        complexity = prefs.getInt("complexity", 0);
 
         isOnHold = true;
     }

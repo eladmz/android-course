@@ -1,11 +1,13 @@
 package eladmizrahi.ex2home;
 
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -13,6 +15,9 @@ import android.widget.TextView;
 public class SettingsActivity extends AppCompatActivity implements TextWatcher
 {
     private EditText edtLevel, edtComplexity;
+    private int level, complexity;
+
+    private SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -23,8 +28,15 @@ public class SettingsActivity extends AppCompatActivity implements TextWatcher
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         edtLevel = (EditText) findViewById(R.id.edtLevel);
-        edtLevel.setFilters(new InputFilter[]{ new InputFilterMinMax("1", "10")});
+        edtLevel.setFilters(new InputFilter[]{new InputFilterMinMax("1", "10")});
         edtComplexity = (EditText) findViewById(R.id.edtComplexity);
+
+        prefs = getSharedPreferences("settings", MODE_PRIVATE);
+        level = prefs.getInt("level", 1);
+        complexity = prefs.getInt("complexity", 0);
+
+        edtLevel.setText(level + "");
+        edtComplexity.setText(complexity + "");
 
         edtLevel.addTextChangedListener(this);
         edtComplexity.addTextChangedListener(this);
@@ -40,17 +52,23 @@ public class SettingsActivity extends AppCompatActivity implements TextWatcher
         }
         else
         {
-            // save it
+            SharedPreferences.Editor editor = prefs.edit();
+            level = Integer.parseInt(levelText);
+            editor.putInt("level", level);
+            editor.apply();
         }
 
-        String ComplexityText = edtComplexity.getText().toString();
-        if (ComplexityText.length() == 0)
+        String complexityText = edtComplexity.getText().toString();
+        if (complexityText.length() == 0)
         {
             edtComplexity.setError("Can't be empty");
         }
         else
         {
-            // save it
+            SharedPreferences.Editor editor = prefs.edit();
+            complexity = Integer.parseInt(complexityText);
+            editor.putInt("complexity", complexity);
+            editor.apply();
         }
     }
 
