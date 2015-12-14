@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Ex2Home</string>
+    <string name="txtLevel">Level</string>
+    <string name="txtComplexity">Complexity</string>
+    <string name="txtBestResult">Best Result</string>
+    <string name="txtRecentResult">Recent Result</string>
+    <string name="txtSettings">Settings</string>
+    <string name="txtStart">Start</string>
+    <string name="txtCurrentTime">Current Time</string>
+</resources>

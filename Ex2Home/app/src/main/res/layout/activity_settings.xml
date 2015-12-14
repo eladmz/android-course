@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:screenOrientation="sensorLandscape"
+    android:background="#50d1f4">
+
+    <TextView
+        android:layout_height="@dimen/textview_height"
+        android:layout_width="@dimen/textview_width"
+        android:textSize="@dimen/font_size"
+        android:text="@string/txtLevel"
+        android:id="@+id/txtLevel"
+        android:layout_marginLeft="136dp"
+        android:layout_marginStart="136dp"
+        android:layout_marginTop="88dp"
+        android:gravity="center"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textColor="#000000"
+        android:background="@drawable/borders" />
+
+    <TextView
+        android:layout_height="@dimen/textview_height"
+        android:layout_width="@dimen/textview_width"
+        android:textSize="@dimen/font_size"
+        android:text="@string/txtComplexity"
+        android:id="@+id/txtComplexity"
+        android:gravity="center"
+        android:layout_marginTop="76dp"
+        android:layout_below="@+id/txtLevel"
+        android:layout_alignLeft="@+id/txtLevel"
+        android:layout_alignStart="@+id/txtLevel"
+        android:textColor="#000000"
+        android:background="@drawable/borders" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/font_size"
+        android:inputType="number"
+        android:digits="0123456789"
+        android:maxLength="2"
+        android:ems="2"
+        android:id="@+id/edtLevel"
+        android:layout_marginRight="96dp"
+        android:layout_marginEnd="96dp"
+        android:imeOptions="actionDone"
+        android:textColor="#000000"
+        android:gravity="center"
+        android:layout_alignTop="@+id/txtLevel"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/font_size"
+        android:inputType="number"
+        android:digits="01234"
+        android:maxLength="1"
+        android:ems="2"
+        android:id="@+id/edtComplexity"
+        android:imeOptions="actionDone"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:layout_alignBottom="@+id/txtComplexity"
+        android:layout_alignLeft="@+id/edtLevel"
+        android:layout_alignStart="@+id/edtLevel" />
+
+</RelativeLayout>

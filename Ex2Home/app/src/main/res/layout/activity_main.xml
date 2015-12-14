@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:screenOrientation="sensorLandscape"
+    android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+    tools:context=".MainActivity"
+    android:background="#50d1f4">
+
+    <TextView
+        android:layout_height="@dimen/textview_height"
+        android:layout_width="@dimen/textview_width_smaller"
+        android:textSize="@dimen/font_size_smaller"
+        android:text="@string/txtBestResult"
+        android:id="@+id/txtBestResult"
+        android:gravity="center"
+        android:layout_marginTop="37dp"
+        android:layout_marginRight="20dp"
+        android:textColor="#000000"
+        android:background="@drawable/borders"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/edtBestResult"
+        android:layout_toStartOf="@+id/edtBestResult" />
+
+    <TextView
+        android:layout_height="@dimen/textview_height"
+        android:layout_width="@dimen/textview_width_smaller"
+        android:textSize="@dimen/font_size_smaller"
+        android:text="@string/txtRecentResult"
+        android:id="@+id/txtRecentResult"
+        android:gravity="center"
+        android:layout_marginRight="20dp"
+        android:layout_alignTop="@+id/edtRecentResult"
+        android:layout_toLeftOf="@+id/edtRecentResult"
+        android:textColor="#000000"
+        android:background="@drawable/borders" />
+
+    <TextView
+        android:layout_height="@dimen/textview_height"
+        android:layout_width="@dimen/textview_width_smaller"
+        android:textSize="@dimen/font_size_smaller"
+        android:text="ss:mmm"
+        android:id="@+id/edtBestResult"
+        android:gravity="center"
+        android:layout_marginRight="5dp"
+        android:layout_alignTop="@+id/txtBestResult"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textColor="#000000"
+        android:background="@drawable/borders" />
+
+    <TextView
+        android:layout_height="@dimen/textview_height"
+        android:layout_width="@dimen/textview_width_smaller"
+        android:textSize="@dimen/font_size_smaller"
+        android:text="ss:mmm"
+        android:id="@+id/edtRecentResult"
+        android:gravity="center"
+        android:layout_marginRight="5dp"
+        android:layout_below="@+id/edtBestResult"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="37dp"
+        android:textColor="#000000"
+        android:background="@drawable/borders" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/font_size_smaller"
+        android:width = "150dp"
+        android:height = "50dp"
+        android:text="@string/txtSettings"
+        android:id="@+id/btnSettings"
+        android:layout_marginTop="39dp"
+        android:layout_below="@+id/txtRecentResult"
+        android:layout_alignRight="@+id/edtRecentResult"
+        android:layout_alignEnd="@+id/edtRecentResult"
+        android:layout_marginRight="200dp"
+        android:layout_marginEnd="64dp"
+        android:background="@drawable/borders"
+         />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/font_size_smaller"
+        android:width="150dp"
+        android:height="50dp"
+        android:text="@string/txtStart"
+        android:id="@+id/btnStart"
+        android:background="@drawable/borders"
+        android:layout_marginBottom="26dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/btnSettings"
+        android:layout_alignStart="@+id/btnSettings" />
+
+</RelativeLayout>
