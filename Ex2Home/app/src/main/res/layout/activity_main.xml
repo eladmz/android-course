@@ -39,7 +39,6 @@
         android:layout_height="@dimen/textview_height"
         android:layout_width="@dimen/textview_width_smaller"
         android:textSize="@dimen/font_size_smaller"
-        android:text="ss:mmm"
         android:id="@+id/edtBestResult"
         android:gravity="center"
         android:layout_marginRight="5dp"
@@ -53,7 +52,6 @@
         android:layout_height="@dimen/textview_height"
         android:layout_width="@dimen/textview_width_smaller"
         android:textSize="@dimen/font_size_smaller"
-        android:text="ss:mmm"
         android:id="@+id/edtRecentResult"
         android:gravity="center"
         android:layout_marginRight="5dp"
@@ -94,5 +92,10 @@
         android:layout_alignParentBottom="true"
         android:layout_alignLeft="@+id/btnSettings"
         android:layout_alignStart="@+id/btnSettings" />
+
+    <eladmizrahi.ex2home.RedButtonView
+        android:id="@+id/redButtonView"
+        android:layout_width="280dp"
+        android:layout_height="500dp" />
 
 </RelativeLayout>
