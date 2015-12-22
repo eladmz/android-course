@@ -68,7 +68,6 @@ public class RedButtonView extends View
         top = getPaddingTop();
         width = w - (getPaddingLeft() + getPaddingRight());
         height = h - (getPaddingTop() + getPaddingBottom());
-        generateCircles();
     }
 
     @Override
@@ -85,9 +84,11 @@ public class RedButtonView extends View
         int x = Circle.getRadius() + rand.nextInt(width - 2*Circle.getRadius());
         int y = Circle.getRadius() + rand.nextInt(height - 2*Circle.getRadius());
         Circle newCircle = new Circle(x,y);
+        if (newCircle.isCollide(recX, recY, recWidth, recHeight))
+            return false;
         for (Circle c: circles)
         {
-            if (c.isCollide(newCircle) || c.isCollide(recX, recY, recWidth, recHeight))
+            if (c.isCollide(newCircle))
             {
                 return false;
             }
@@ -100,9 +101,6 @@ public class RedButtonView extends View
     {
         if (!MainActivity.isOnHold)
         {
-            Random rand = new Random();
-            recX = rand.nextInt(width - recWidth);
-            recY = rand.nextInt(height - recHeight);
             canvas.drawRect(recX, recY, recX +recWidth, recY+recHeight, paint);
         }
 
@@ -120,10 +118,13 @@ public class RedButtonView extends View
 
     }
 
-    public void generateCircles()
+    public void generateObjects()
     {
-        complexity = prefs.getInt("complexity", 0);
+        Random rand = new Random();
+        recX = rand.nextInt(width - recWidth);
+        recY = rand.nextInt(height - recHeight);
         circles.clear();
+        complexity = prefs.getInt("complexity", 0);
         for (int i = 0; i < complexity; ++i)
         {
             while (!generateCircle());
@@ -139,7 +140,7 @@ public class RedButtonView extends View
                 if (event.getX() >= recX && event.getX() <= recX + recWidth && event.getY() >= recY && event.getY() <= recY + recHeight)
                 {
                     invalidate();
-                    generateCircles();
+                    generateObjects();
                     return true;
                 }
                 break;

@@ -17,37 +17,36 @@ public class AppEntryBestScoresDAL
         helper = new AppEntryBestScoresDBHelper(context);
     }
 
-    public void addBestScoreEntry(String score, int level, int complexity){
-        //get DB
-        SQLiteDatabase db = helper.getWritableDatabase();
+    public void addBestScoreEntry(long score, int level, int complexity)
+    {
+        long bestScore = getBestScore(level, complexity);
 
-        //values to save
-        ContentValues values = new ContentValues();
-        values.put(AppEntryBestScoresContract.AppEntryBestScores.BEST_SCORE, score);
-        values.put(AppEntryBestScoresContract.AppEntryBestScores.LEVEL, level);
-        values.put(AppEntryBestScoresContract.AppEntryBestScores.COMPLEXITY, complexity);
-
-        //save the values
-        db.insert(AppEntryBestScoresContract.AppEntryBestScores.TABLE_NAME, null, values);
-        db.close();
+        if (bestScore == 0)
+        {
+            addBestScore(score, level, complexity);
+        }
+        else
+        {
+            updateBestScore(score, level, complexity);
+        }
     }
 
-    public String getBestScore(int level, int complexity)
+    public long getBestScore(int level, int complexity)
     {
-        String bestScore = "";
+        long bestScore = 0;
 
         SQLiteDatabase db = helper.getReadableDatabase();
 
         String[] selectionArgs = { level + "", complexity + ""};
         Cursor cursor = db.rawQuery("SELECT " + AppEntryBestScoresContract.AppEntryBestScores.BEST_SCORE + " FROM " +
                                     AppEntryBestScoresContract.AppEntryBestScores.TABLE_NAME + " WHERE " +
-                                    AppEntryBestScoresContract.AppEntryBestScores.LEVEL + " =? AND " +
-                                    AppEntryBestScoresContract.AppEntryBestScores.COMPLEXITY + " =? ", selectionArgs);
+                                    AppEntryBestScoresContract.AppEntryBestScores.LEVEL + " = ? AND " +
+                                    AppEntryBestScoresContract.AppEntryBestScores.COMPLEXITY + " = ? ", selectionArgs);
 
         while (cursor.moveToNext())
         {
             int bestScoreIndex = cursor.getColumnIndex(AppEntryBestScoresContract.AppEntryBestScores.BEST_SCORE);
-            bestScore = cursor.getString(bestScoreIndex);
+            bestScore = cursor.getLong(bestScoreIndex);
         }
 
         db.close();
@@ -55,7 +54,7 @@ public class AppEntryBestScoresDAL
         return bestScore;
     }
 
-    public void updateBestScore(String score, int level, int complexity)
+    private void updateBestScore(long score, int level, int complexity)
     {
         SQLiteDatabase db = helper.getReadableDatabase();
 
@@ -68,6 +67,22 @@ public class AppEntryBestScoresDAL
 
         db.update(AppEntryBestScoresContract.AppEntryBestScores.TABLE_NAME, values, where, whereArgs);
 
+        db.close();
+    }
+
+    private void addBestScore(long score, int level, int complexity)
+    {
+        //get DB
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+        //values to save
+        ContentValues values = new ContentValues();
+        values.put(AppEntryBestScoresContract.AppEntryBestScores.BEST_SCORE, score);
+        values.put(AppEntryBestScoresContract.AppEntryBestScores.LEVEL, level);
+        values.put(AppEntryBestScoresContract.AppEntryBestScores.COMPLEXITY, complexity);
+
+        //save the values
+        db.insert(AppEntryBestScoresContract.AppEntryBestScores.TABLE_NAME, null, values);
         db.close();
     }
 }

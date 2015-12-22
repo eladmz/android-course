@@ -34,13 +34,9 @@ public class Circle
 
     public boolean isCollide(int x, int y, int width, int height)
     {
-//        double distance = Math.pow(centerX - c.getCenterX(),2) + Math.pow(centerY - c.getCenterY(), 2);
-//        if (Math.sqrt(distance) <= 2*radius)
-//        {
-//            return true;
-//        }
-//        return false;
-        return false;
+        if (centerY + radius < y || centerY - radius > y + height || centerX + radius < x || centerX - radius > x + width)
+            return false;
+        return true;
     }
 
     public static int getRadius()
