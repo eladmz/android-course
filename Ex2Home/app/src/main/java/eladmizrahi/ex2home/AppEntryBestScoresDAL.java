@@ -61,8 +61,8 @@ public class AppEntryBestScoresDAL
         ContentValues values = new ContentValues();
         values.put(AppEntryBestScoresContract.AppEntryBestScores.BEST_SCORE, score);
 
-        String where = AppEntryBestScoresContract.AppEntryBestScores.LEVEL + " =? AND " +
-                       AppEntryBestScoresContract.AppEntryBestScores.COMPLEXITY + " =? ";
+        String where = AppEntryBestScoresContract.AppEntryBestScores.LEVEL + " = ? AND " +
+                       AppEntryBestScoresContract.AppEntryBestScores.COMPLEXITY + " = ? ";
         String[] whereArgs = { level + "", complexity + "" };
 
         db.update(AppEntryBestScoresContract.AppEntryBestScores.TABLE_NAME, values, where, whereArgs);

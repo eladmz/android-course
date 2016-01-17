@@ -21,17 +21,16 @@ public class AppEntryBestScoresDBHelper extends SQLiteOpenHelper
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(
                 "CREATE TABLE " + AppEntryBestScoresContract.AppEntryBestScores.TABLE_NAME + "(" +
-                        AppEntryBestScoresContract.AppEntryBestScores._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         AppEntryBestScoresContract.AppEntryBestScores.BEST_SCORE + " INTEGER, " +
                         AppEntryBestScoresContract.AppEntryBestScores.LEVEL + " INTEGER, " +
-                        AppEntryBestScoresContract.AppEntryBestScores.COMPLEXITY + " INTEGER " +
-                        ");"
+                        AppEntryBestScoresContract.AppEntryBestScores.COMPLEXITY + " INTEGER, " +
+                        "PRIMARY KEY(" + AppEntryBestScoresContract.AppEntryBestScores.LEVEL + "," +
+                        AppEntryBestScoresContract.AppEntryBestScores.COMPLEXITY + "));"
         );
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXIST " + AppEntryBestScoresContract.AppEntryBestScores.TABLE_NAME);
-        onCreate(db);
+
     }
 }

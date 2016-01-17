@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Ex03Home</string>
+
+    <string-array name="locations_array">
+        <item>Jerusalem</item>
+        <item>Cairo</item>
+        <item>London</item>
+        <item>Paris</item>
+        <item>Bangkok</item>
+        <item>Tokyo</item>
+        <item>Mumbai</item>
+        <item>Moscow</item>
+        <item>Madrid</item>
+        <item>Current Location</item>
+    </string-array>
+
+</resources>

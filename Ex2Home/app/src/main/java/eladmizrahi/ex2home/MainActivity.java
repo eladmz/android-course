@@ -3,7 +3,6 @@ package eladmizrahi.ex2home;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -23,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private TextView txtBestResult, txtRecentResult, edtBestResult, edtRecentResult;
     private Button btnSettings, btnStart;
-    private int level, complexity;
+    private int level, complexity, timesToClick;
     private AppEntryBestScoresDAL dal;
     private long startTime, currentTime, bestTime;
     RedButtonView redButtonView;
@@ -49,16 +48,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         btnSettings.setOnClickListener(this);
         btnStart.setOnClickListener(this);
+        txtBestResult.setOnClickListener(this);
         redButtonView.setOnTouchListener(this);
 
         prefs = getSharedPreferences("settings", MODE_PRIVATE);
         level = prefs.getInt("level", 1);
         complexity = prefs.getInt("complexity", 0);
         dal = new AppEntryBestScoresDAL(getApplicationContext());
+//        getApplicationContext().deleteDatabase("AppTimeBestScores.db");
 
         bestTime = dal.getBestScore(level, complexity);
         if (bestTime != 0)
+        {
             displayBestTime();
+        }
+
 
         isOnHold = true;
     }
@@ -84,8 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         level = prefs.getInt("level", 1);
         complexity = prefs.getInt("complexity", 0);
         bestTime = dal.getBestScore(level, complexity);
-        if (bestTime != 0)
-            displayBestTime();
+        displayBestTime();
         redButtonView.invalidate();
     }
 
@@ -102,25 +105,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             isOnHold = false;
             startGame();
         }
+        else if (v == txtBestResult && isOnHold)
+        {
+            bestTime = 0;
+            dal.addBestScoreEntry(bestTime, level, complexity);
+            displayBestTime();
+        }
     }
 
     @Override
-    public boolean onTouch(View v, MotionEvent event) {
+    public boolean onTouch(View v, MotionEvent event)
+    {
         if(!isOnHold && v.onTouchEvent(event))
-            level--;
+        {
+            timesToClick--;
+        }
         checkGameOver();
         return true;
     }
 
     private void checkGameOver()
     {
-        if (level == 0 && timer != null)
+        if (timesToClick == 0 && timer != null)
         {
             timer.cancel();
             timer = null;
             isOnHold = true;
+            txtRecentResult.setText("Recent Result");
             redButtonView.invalidate();
-            if (bestTime != 0 && currentTime < bestTime)
+            if (bestTime == 0 || (bestTime != 0 && currentTime < bestTime))
             {
                 bestTime = currentTime;
                 dal.addBestScoreEntry(bestTime, level, complexity);
@@ -133,6 +146,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         level = prefs.getInt("level", 1);
         complexity = prefs.getInt("complexity", 0);
+        timesToClick = level;
         redButtonView.generateObjects();
         txtRecentResult.setText(R.string.txtCurrentTime);
         startTime = System.currentTimeMillis();
@@ -163,8 +177,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void displayBestTime()
     {
-        SimpleDateFormat fmt = new SimpleDateFormat("ss:SSS");
-        Date date = new Date(bestTime);
-        edtBestResult.setText(fmt.format(date));
+        if (bestTime != 0)
+        {
+            SimpleDateFormat fmt = new SimpleDateFormat("ss:SSS");
+            Date date = new Date(bestTime);
+            edtBestResult.setText(fmt.format(date));
+        }
+        else
+            edtBestResult.setText("");
     }
 }
